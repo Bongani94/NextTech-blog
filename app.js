@@ -1,14 +1,25 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const blogRoutes = require('./routes/blogRoutes');
+const authRoute = require("./routes/auth");
+const userRoute = require("./routes/users");
+const postRoute = require("./routes/post");
+const categoryRoute = require("./routes/categories");
+const multer = require("multer");
+const dotenv = require("dotenv");
 
 const app = express();
+dotenv.config();
+app.use(express.json());
 
 // connect to mangodb
-const dbURI = 'mongodb+srv://tech:team1234@cluster0.ethqys6.mongodb.net/note?retryWrites=true&w=majority';
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => app.listen(3000))
+mongoose
+    .connect(process.env.MONGO_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        
+    })
+    .then(console.log("Connect to mongoDB"))
     .catch((err) => console.log(err));
 
 // ejs template
@@ -18,20 +29,31 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extendend: true }));
 app.use(morgan('dev'));
 
-// home page
-app.get('/', (req, res) => {
-    res.redirect('/blogs');
+// Image upload
+const storage = multer.diskStorage({
+    destination: (req, file, callback) => {
+        callback(null, "images");
+    },
+    filename: (req, file, callback) => {
+        callback(null, req.body.name);
+    },
 });
 
-// about page
-app.get('/about', (req, res) => {
-    res.render('about', { title: 'About' })
+const upload = multer({storage:storage});
+app.post("/api/upload", upload.single("file"), (req, res) => {
+    res.status(200).json("File has been uploaded")
 });
 
-// blog routes
-app.use('/blogs', blogRoutes)
+// Routes pages
+app.use("/auth", authRoute);
+app.use("/users", userRoute);
+app.use("/posts", postRoute);
+app.use("/categories", categoryRoute);
+
 
 // 404 error page
 app.use((req, res) => {
     res.status(404).render('404', { title: '404' });
 })
+
+app.listen(3000)
