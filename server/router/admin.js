@@ -29,6 +29,7 @@ const authMiddleware = (req, res, next) => {
 
 
 /**
+ * GET /
  * Login page
  */
 router.get('/admin', async (req, res) => {
@@ -38,7 +39,7 @@ router.get('/admin', async (req, res) => {
             description: ""
         }
 
-        res.render('admin/home', {
+        res.render('admin/login', {
             locals,
             adminLayout,
             currentRoute: '/admin'
@@ -216,31 +217,48 @@ router.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
+/**
+ * GET /
+ * Register page
+ */
+router.get('/register', async (req, res) => {
+    try {
+        const locals = {
+            title: "Admin",
+            description: ""
+        }
+
+        res.render('admin/register', {
+            locals,
+            adminLayout,
+            currentRoute: '/admin'
+        });
+    } catch (err) {
+        console.log(err)
+    }
+})
+
  /**
   * POST /
   * Register admin
   */
-
-router.post('/register', async (req, res) => {
+ router.post("/register", async (req, res) => {
     try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPass = await bcrypt.hash(req.body.password, salt);
+        const newUser = new User({
+            username: req.body.username,
+            email: req.body.email,
+            password: hashedPass
+        });
 
-        const { username, password } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        try {
-            const user = await User.create({ username, password:hashedPassword })
-            res.status(201).json({ message: 'User Created', user})
-
-        } catch (err) {
-            if(err.code === 11000) {
-                res.status(409).json({ message: 'User already in use'})
-            }
-            res.status(500).json({ message: 'Internal server error'})
-        }
-        
-    } catch (err) {
-        console.log(err)
+        const user = await newUser.save();
+        res.status(200).json({ message: 'User Created', user});
+    }
+    catch (err) {
+        res.status(500).json({ message: 'User already in use'});
     }
 });
+
 
 module.exports = router;
