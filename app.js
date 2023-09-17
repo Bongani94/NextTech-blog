@@ -1,59 +1,51 @@
-const express = require('express');
-const morgan = require('morgan');
-const mongoose = require('mongoose');
-const authRoute = require("./routes/auth");
-const userRoute = require("./routes/users");
-const postRoute = require("./routes/post");
-const categoryRoute = require("./routes/categories");
-const multer = require("multer");
-const dotenv = require("dotenv");
+require('dotenv').config();
+
+const express = require("express");
+const expressLayout = require("express-ejs-layouts");
+const cookieParser = require('cookie-parser');
+const MongoStore = require('connect-mongo');
+const session = require('express-session');
+const methodOverride = require('method-override');
+
+const connectDB = require('./server/config/db')
+const isActiveRoute = require('./server/helpers/routeHelpers');
 
 const app = express();
-dotenv.config();
+const PORT = 3000 || process.env.PORT;
+
+// connect to Database
+connectDB();
+
+// Middleware
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
+app.use(methodOverride('_method'));
 
-// connect to mangodb
-mongoose
-    .connect(process.env.MONGO_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        
+// session express
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URL
     })
-    .then(console.log("Connect to mongoDB"))
-    .catch((err) => console.log(err));
+}));
 
-// ejs template
+// stylish accept
+app.use(express.static('public'));
+
+// Templating Engine
+app.use(expressLayout);
+app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
 
-// middleware
-app.use(express.urlencoded({ extendend: true }));
-app.use(morgan('dev'));
+app.locals.isActiveRoute = isActiveRoute;
 
-// Image upload
-const storage = multer.diskStorage({
-    destination: (req, file, callback) => {
-        callback(null, "images");
-    },
-    filename: (req, file, callback) => {
-        callback(null, req.body.name);
-    },
+// From server
+app.use('/', require('./server/router/main'));
+app.use('/', require('./server/router/admin'));
+
+app.listen(PORT, () => {
+    console.log(`App listening ${PORT}`)
 });
-
-const upload = multer({storage:storage});
-app.post("/api/upload", upload.single("file"), (req, res) => {
-    res.status(200).json("File has been uploaded")
-});
-
-// Routes pages
-app.use("/auth", authRoute);
-app.use("/users", userRoute);
-app.use("/posts", postRoute);
-app.use("/categories", categoryRoute);
-
-
-// 404 error page
-app.use((req, res) => {
-    res.status(404).render('404', { title: '404' });
-})
-
-app.listen(3000)
