@@ -129,7 +129,6 @@ router.get('/add-post', authMiddleware, async (req, res) => {
  */
 router.post('/add-post', authMiddleware, async (req, res) => {
     try {
-        console.log(req.body)
         try {
             const newPost = new Post({
                 title: req.body.title,
@@ -185,7 +184,7 @@ router.get('/edit-post/:id', authMiddleware, async (req, res) => {
 router.put('/edit-post/:id', authMiddleware, async (req, res) => {
     try {
 
-        await Post.findByIdAndUpdate(req.params.dictionary, {
+        await Post.findByIdAndUpdate(req.params.id, {
             title: req.body.title,
             body: req.body.body,
             updatedAt: Date.now()
