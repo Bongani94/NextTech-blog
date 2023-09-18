@@ -155,17 +155,21 @@ router.post('/add-post', authMiddleware, async (req, res) => {
  */
 router.get('/edit-post/:id', authMiddleware, async (req, res) => {
     try {
+        let par = req.params.id
+
+        const data = await Post.findOne({ _id: par });
+
         const locals = {
             title: "Edit Blog",
             description: "",
-            currentRoute: '/post'
         };
-        const data = await Post.findOne({ _id: req.params.id });
+        
 
         res.render('admin/edit-post', {
             data,
             locals,
             layout: adminLayout,
+            currentRoute: `/edit-post/${par}`
         })
 
     } catch (err) {
@@ -214,7 +218,7 @@ router.delete('/delete-post/:id', authMiddleware, async (req, res) => {
 router.get('/logout', (req, res) => {
     res.clearCookie('token');
     res.json({ message: 'Logout Successful'});
-    res.redirect('/');
+    res.redirect('/admin');
 });
 
 /**
