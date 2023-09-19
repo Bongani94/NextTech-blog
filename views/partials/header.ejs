@@ -1,28 +1,42 @@
-<header class="header">
-    <a href="/" class="header_logo">Next Tech Blog</a>
+<nav class="header sticky flex justify-between bg-amber-900 border-b-2 items-center px-8 lg:px-20">
+    <div class="container mx-auto flex items-center justify-between">
+        <a href="/" class="header_logo">Next Tech Blog</a>
 
-    <nav class="header_nav">
-        <ul>
-            <li>
-                <a href="/" class="<%= isActiveRoute('/', currentRoute) %>">Home</a>
-            </li>
-            <li>
-                <a href="/about" class="<%= isActiveRoute('/about', currentRoute) %>">About</a>
-            </li>
-            <li>  
-                <a href="/contact" class="<%= isActiveRoute('/contact', currentRoute) %>">Contact</a>
-            </li>
-            <li>
-                <a href="/register" class="<%= isActiveRoute('/register', currentRoute) %>">Sign-Up</a>
-            </li>
-        </ul>
-    </nav>
+        <!-- Mobile Nav -->
+        <div class="lg:hidden">
+            <button id="mobile-menu-button" class="text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
 
-    <div class="header_button">
-        <button class="searchBtn" aria-expanded="false">
-            search
-            <svg width="17" height="17">
-            </svg>
-        </button>
+        <!-- Desktop Nav  -->
+        <div class="hidden lg:flex space-x-4">
+            <a href="/" class="<%= isActiveRoute('/', currentRoute) %>">Home</a>
+            <a href="/about" class="<%= isActiveRoute('/about', currentRoute) %>">About</a>
+            <a href="/contact" class="<%= isActiveRoute('/contact', currentRoute) %>">Contact</a>
+            <a href="/register" class="<%= isActiveRoute('/register', currentRoute) %>">Sign-Up</a>
+        </div>
+
+        <!-- Search -->
+        <div class="header_button hidden lg:block">
+            <div id="search-container" class="hidden-search w-full">
+                <input class="px-4 py-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300" type="text" placeholder="Search...">
+            </div>
+            <div class="container mx-auto py-10 text-center">
+                <button id="show-search-button" class="bg-blue-500 text-white px-4 py-2 rounded-md shadow hover:border-blue-600 focus:outline-none">
+                    Search
+                </button>
+            </div>
+        </div>
     </div>
-</header>
+</nav>
+
+<!-- Mobile Nav -->
+<div id="mobile-menu" class="lg:hidden hidden bg-amber-900 p-4 text-white border-b-2">
+    <a href="/" class="<%= isActiveRoute('/', currentRoute) %> block mb-2">Home</a>
+    <a href="/about" class="<%= isActiveRoute('/about', currentRoute) %> block mb-2">About</a>
+    <a href="/contact" class="<%= isActiveRoute('/contact', currentRoute) %> block mb-2">Contact</a>
+    <a href="/register" class="<%= isActiveRoute('/register', currentRoute) %> block mb-2">Sign-Up</a>
+</div>
