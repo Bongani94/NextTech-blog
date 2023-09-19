@@ -26,8 +26,7 @@ router.get('', async (req, res) => {
             locals,
             data,
             current: page,
-            nextPage: hasNextPage ? nextPage : null,
-            currentRoute: '/'
+            nextPage: hasNextPage ? nextPage : null
         });
 
     } catch (err) {
@@ -46,7 +45,6 @@ router.get('/post/:id', async (req, res) => {
         const locals = {
             title: data.title,
             description: "",
-            currentRoute: `/post/${slug}`
         }
         res.render("post", { locals, data })
     } catch (err) {
@@ -84,9 +82,7 @@ router.post('/search', async (req, res) => {
  * About Page
  */
 router.get('/about', (req, res) => {
-    res.render('about', {
-        currentRoute: '/about'
-    });
+    res.render('about');
 });
 
 /**
@@ -94,9 +90,7 @@ router.get('/about', (req, res) => {
  * contact Page
  */
 router.get('/contact', (req, res) => {
-    res.render('contact', {
-        currentRoute: '/contact'
-    })
+    res.render('contact')
 })
 
 module.exports = router;

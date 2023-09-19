@@ -91,8 +91,7 @@ router.get('/dashboard', authMiddleware, async (req, res) => {
         res.render('admin/dashboard', {
             locals,
             data,
-            layout: adminLayout,
-            currentRoute: '/dashboard'
+            layout: adminLayout
         })  
     } catch (err) {
         console.log(err);
@@ -114,8 +113,7 @@ router.get('/add-post', authMiddleware, async (req, res) => {
         const data = await Post.find();
         res.render('admin/add-post', {
             locals,
-            layout: adminLayout,
-            currentRoute: '/add-post'
+            layout: adminLayout
         })  
     } catch (err) {
         console.log(err);
@@ -129,7 +127,6 @@ router.get('/add-post', authMiddleware, async (req, res) => {
  */
 router.post('/add-post', authMiddleware, async (req, res) => {
     try {
-        console.log(req.body)
         try {
             const newPost = new Post({
                 title: req.body.title,
@@ -169,7 +166,6 @@ router.get('/edit-post/:id', authMiddleware, async (req, res) => {
             data,
             locals,
             layout: adminLayout,
-            currentRoute: `/edit-post/${par}`
         })
 
     } catch (err) {
@@ -185,7 +181,7 @@ router.get('/edit-post/:id', authMiddleware, async (req, res) => {
 router.put('/edit-post/:id', authMiddleware, async (req, res) => {
     try {
 
-        await Post.findByIdAndUpdate(req.params.dictionary, {
+        await Post.findByIdAndUpdate(req.params.id, {
             title: req.body.title,
             body: req.body.body,
             updatedAt: Date.now()
@@ -217,7 +213,6 @@ router.delete('/delete-post/:id', authMiddleware, async (req, res) => {
  */
 router.get('/logout', (req, res) => {
     res.clearCookie('token');
-    res.json({ message: 'Logout Successful'});
     res.redirect('/admin');
 });
 
@@ -234,8 +229,7 @@ router.get('/register', async (req, res) => {
 
         res.render('admin/register', {
             locals,
-            adminLayout,
-            currentRoute: '/admin'
+            adminLayout
         });
     } catch (err) {
         console.log(err)
@@ -257,7 +251,7 @@ router.get('/register', async (req, res) => {
         });
 
         const user = await newUser.save();
-        res.status(200).json({ message: 'User Created', user});
+        res.redirect('admin', user)
     }
     catch (err) {
         res.status(500).json({ message: 'User already in use'});
