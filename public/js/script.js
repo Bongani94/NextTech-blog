@@ -1,15 +1,23 @@
-const showSearchButton = document.getElementById('show-search-button');
-const searchContainer = document.getElementById('search-container');
-
-showSearchButton.addEventListener('click', () => {
-    searchContainer.classList.toggle('hidden-search');
+// Search bar
+const toggleSearchButton = document.getElementById('toggle-search-button');
+const searchField = document.getElementById('search-field')
+toggleSearchButton.addEventListener('click', () => {
+    searchField.classList.toggle('hidden');
 });
 
 // Responsive navigation menu
 const mobileMenuButton = document.getElementById('mobile-menu-button');
 const mobileMenu = document.getElementById('mobile-menu');
-
-// Toggle mobile menu visibility when the button is clicked
 mobileMenuButton.addEventListener('click', () => {
     mobileMenu.classList.toggle('hidden');
+});
+
+// Active link
+const currentPath = window.location.pathname;
+const links = document.querySelectorAll('.nav-link');
+links.forEach(link => {
+    const linkPath = link.getAttribute('href');
+    if (currentPath === linkPath) {
+        link.classList.add('active-link');
+    }
 });

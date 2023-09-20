@@ -1,4 +1,11 @@
-<h1><%= data.title %></h1>
-<article class="article">
-    <%= data.body %>
-</article>
+<section class="px-8 lg:20">
+    <h1><%= data.title %></h1>
+    <div>
+        <p><%= data.createdAt.toDateString() %></p>
+        <p><%= data.author %></p>
+        <p><%= data.updatedAt.toDateString() %></p>
+    </div>
+    <article class="article">
+        <%= data.body %>
+    </article>
+</section>
