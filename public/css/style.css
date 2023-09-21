@@ -17,7 +17,7 @@ body {
     font-family: 'Roboto Slab', serif;
     color: var(--black);
     font-size: var(--font-size-base);
-    background-color: rgb(201, 186, 215);
+    background-color: rgb(226 232 240);
     background-image: url("/img/");
     margin: 0;
     padding: 0;
@@ -60,14 +60,6 @@ textarea {
     background-color: var(--red);
 }
 
-/* question-image */
-.question-image {
-    max-height: 528px;
-    filter: drop-shadow(0px 44px 34px black);
-    overflow: hidden;
-    border-radius: var(--border-radius);
-}
-
 /* Author - HomePage */
 .author {
     padding: 10px 0;
@@ -82,91 +74,6 @@ textarea {
 .author_body {
     font-size: var(--font-size-md);
     margin: 5px 0 40px 0;
-}
-
-/* Home Article list */
-.article_heading {
-    margin-top: 4rem;
-    font-weight: 400;
-}
-
-.article-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    font-size: clamp(1.13rem, calc(1.08rem + 0.22vw), 1.25rem);
-    display: flex;
-    flex-direction: column;
-}
-
-.article-list_date {
-    font-size: var(--font-size-base);
-    color: rgb(20, 78, 105);
-    width: 160px;
-    display: inline-block;
-}
-
-.article-ul li a {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-decoration: none;
-    margin: 18px 0;
-}
-
-@media only screen and (min-width: 768px) {
-    .article-ul li a {
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .article-list_date {
-        text-align: right;
-    }
-}
-
-.article-ul li {
-    font-size: 24px;
-    cursor: pointer;
-    transition: filter 0.1s;
-}
-
-.article-ul li:not(:last-child) {
-    border-bottom: 1px solid rgb(62, 132, 179);
-}
-
-.article-ul li:hover {
-    filter: none;
-}
-
-.article-ul:hover li {
-    filter: blur(3px);
-}
-
-.article-ul:hover li:hover {
-    filter: none;
-}
-
-.article {
-    white-space: pre-wrap;
-}
-
-.pagination {
-    font-size: 1.3rem;
-    color: rgb(21, 92, 110);
-    text-decoration: none;
-    margin-top: 40px;
-    display: inline-block;
-}
-
-.pagination:hover {
-    color: rgb(124, 132, 27);
-}
-
-/* Footer */
-footer {
-    margin: 4rem;
-    text-align: center;
 }
 
 /* SearchBar */
@@ -237,7 +144,7 @@ footer {
 
 .active-link {
     font-weight: bold;
-    color: #d97706;
+    color: rgb(107 114 128);
 }
 
 .blog-post {

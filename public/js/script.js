@@ -3,6 +3,9 @@ const toggleSearchButton = document.getElementById('toggle-search-button');
 const searchField = document.getElementById('search-field')
 toggleSearchButton.addEventListener('click', () => {
     searchField.classList.toggle('hidden');
+    if (!searchField.classList.contains('hidden')) {
+        searchField.focus();
+    }
 });
 
 // Responsive navigation menu

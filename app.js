@@ -34,6 +34,7 @@ app.use(session({
 // stylish accept
 app.use(express.static('public'));
 
+
 // Templating Engine
 app.use(expressLayout);
 app.set('layout', './layouts/main');

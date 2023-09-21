@@ -1,5 +1,5 @@
-<div class="h-1/2 grid bg-amber-900 px-8 lg:px-20 py-10 lg:py-24 text-white">
-    <h1 class="text-center text-2xl mb-5 lg:mb-10">Welcome to Next Tech Blog</h1>
+<div class="h-1/2 grid bg-slate-900 px-8 lg:px-20 py-10 lg:py-24 text-white">
+    <h1 class="text-center text-2xl mb-5 lg:mb-10">Welcome to NextTech Blog</h1>
     <p class="text-center">
         Let us come together and celebrate our shared passion for technology through this exciting endeavor.
         I am confident that this platform will foster a sense of community and empower individuals to connect,
@@ -13,34 +13,40 @@
 </div>
 
 <!-- Latest Post -->
-<section class="articles px-8 lg:px-20 pt-5 lg:pt-10">
-    <h2 class="articles_heading">Latest Posts</h2>
+<section class="px-8 lg:px-20 pt-5 lg:pt-10">
+    <h2 class="mb-4 lg:mb-8">Latest Post</h2>
 
-    <ul class="article-ul">
-        <% data.forEach(post => { %>
+    <ul class="hover:animate-bounce mb-4 lg:mb-8">
+        <% if (recentPost) { %>
         <li>
-            <a href="/post/<%= post._id %>">
-                <span><%= post.title %></span>
-                <span class="article-list_date"><%= post.createdAt.toDateString() %></span>
+            <a class="md:flex grid justify-between" href="/post/<%= recentPost._id %>">
+                <span class="text-2xl"><%= recentPost.title %></span>
+                <span class="article-list_date  text-gray-500"><%= recentPost.createdAt.toDateString() %></span>
             </a>
         </li>
-        <% }) %>
+        <% } else { %>
+        <p>No latest post found</p>
+        <% } %>
     </ul>
 
     <% if (nextPage !== null) { %>
-        <a href="/?page=<%= nextPage %>" class="pagination">&lt; View Older Posts</a>
+        <a href="/?page=<%= nextPage %>" class="pagination text-gray-500 hover:text-slate-900">&lt; View Older Posts</a>
     <% } %>
     
 </section>
 
 <!-- Other Posts -->
-<div class="container mx-auto  px-8 lg:px-20 py-10 lg:py-24 grid md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10">
-    <div class="blog-post">
-        <% data.forEach(post => { %>
-        <h2 class="text-2xl font-bold mb-2"><%= post.title %></h2>
-        <p class="text-gray-500 mb-2">Posted on <%= post.createdAt.toDateString() %> by <%= post.author %></p>
-        <p class="line-clamp-3 break-all mb-2"><%= post.body %></p>
-        <a href="/post/<%= post._id %>" class="text-blue-500 hover:underline">Read more</a>
-        <% }) %>
+<div class="container mx-auto px-8 lg:px-20 py-10 lg:py-24">
+    <h2 class="mb-4 lg:mb-8">Other Posts</h2>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10">
+        <div class="blog-post">
+            <% data.forEach(post => { %>
+            <h2 class="text-2xl font-bold mb-2"><%= post.title %></h2>
+            <p class="text-gray-500 mb-2">Posted on <%= post.createdAt.toDateString() %> by <%= post.username %></p>
+            <p class="line-clamp-3 break-all mb-2"><%= post.body %></p>
+            <a href="/post/<%= post._id %>" class="text-blue-500 hover:underline">Read more</a>
+            <% }) %>
+        </div>
     </div>
 </div>

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
 
+
 // Home page
 router.get('', async (req, res) => {
     try {
@@ -12,6 +13,7 @@ router.get('', async (req, res) => {
 
         let perPage = 10;
         let page = req.query.page || 1;
+        const recentPost = await Post.findOne().sort({ createdAt: -1 });
 
         const data = await Post.aggregate([ { $sort: { createdAt: -1 }} ])
         .skip(perPage * page - perPage)
@@ -26,7 +28,8 @@ router.get('', async (req, res) => {
             locals,
             data,
             current: page,
-            nextPage: hasNextPage ? nextPage : null
+            nextPage: hasNextPage ? nextPage : null,
+            recentPost
         });
 
     } catch (err) {

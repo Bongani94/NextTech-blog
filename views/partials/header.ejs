@@ -1,23 +1,16 @@
-<nav class="sticky top-0 z-50 flex justify-between bg-amber-900 border-b items-center py-4 px-8 lg:px-20 text-white">
+<nav class="w-full sticky top-0 z-50 flex justify-between bg-slate-900 border-b items-center py-4 lg:py-8 px-8 lg:px-20 text-white">
     <div class="container mx-auto flex items-center justify-between">
-        <a href="/" class="md:text-2xl text-lg">Next Tech Blog</a>
+        <a href="/" class="md:text-2xl text-lg flex items-center justify-between">
+            <img src="/img/NextTechBlog.png" alt="NextTech Blog Logo" class="h-8 lg:h-10 mr-2">
+            <span>NextTech Blog</span>
+        </a>
         
         <!-- Desktop Nav  -->
-        <div class="hidden md:flex space-x-4">
+        <div class="hidden md:flex space-x-8">
             <a href="/" class="nav-link hover:underline"  id="home-link">Home</a>
             <a href="/about" class="nav-link hover:underline" id="about-link">About</a>
             <a href="/contact" class="nav-link hover:underline" id="contact-link">Contact</a>
             <a href="/register" class="nav-link hover:underline" id="register-link">Register</a>
-        </div>
-
-        <!-- Search -->
-        <div class="relative">
-            <button id="toggle-search-button" class="text-white">
-                Search
-            </button>
-            <div id="search-field" class="hidden absolute top-0 right-0 mt-12 w-40 md:w-96 bg-transparent">
-                <input type="text" class="w-full text-black border rounded focus:outline-none focus:border-amber-600" placeholder="Search here">
-            </div>
         </div>
 
         <!-- Mobile Nav -->
@@ -29,11 +22,32 @@
             </button>
         </div>
 
+        <!-- Search Bar Toggle -->
+        <div class="">
+            <button id="toggle-search-button" class="text-white">
+                Search
+            </button>
+        </div>
+
     </div>
+
+    
 </nav>
 
+<!-- Search Bar -->
+<div class="fixed z-10 mt-1 hidden w-full px-8 lg:px-20" id="search-field">
+    <div class="mt-0 w-full bg-transparent">
+        <input 
+            type="text" 
+            class="w-full ring text-gray-800 border rounded transition focus:outline-none p-2 focus:border-slate-900" 
+            placeholder="Search here"
+            autofocus="autofocus"
+        >
+    </div>
+</div>
+
 <!-- Mobile Nav -->
-<div id="mobile-menu" class="md:hidden hidden bg-amber-900 p-4 text-white border-b-2">
+<div id="mobile-menu" class="md:hidden z-10 hidden fixed w-full bg-slate-900 p-4 text-white border-b-2">
     <a href="/" class="block mb-2">Home</a>
     <a href="/about" class="block mb-2">About</a>
     <a href="/contact" class="block mb-2">Contact</a>
