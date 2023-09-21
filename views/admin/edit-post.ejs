@@ -1,5 +1,5 @@
-<a href="/dashboard">&larr; Back</a>
-<div class="admin-title">
+<a class=" py-4 lg:py-8 px-8 lg:px-20" href="/dashboard">&larr; Back</a>
+<div class="admin-title py-4 lg:py-8 px-8 lg:px-20">
     <h2>View / Edit Blog</h2>
 
     <form action="/delete-post/<%= data._id %>?_method=DELETE" method="POST">
@@ -8,14 +8,16 @@
 
 </div>
 
-<form action="/edit-post/<%= data._id %>?_method=PUT" method="POST">
+<div class="py-4 lg:py-8 px-8 lg:px-20">
+    <form action="/edit-post/<%= data._id %>?_method=PUT" method="POST">
 
-    <label for="title"><b>Title</b></label>
-    <input type="text" placeholder="Blog Title" name="title" value="<%= data.title %>">
-
-    <label for="body"><b>Content</b></label>
-    <textarea name="body" cols="50" rows="10"><%= data.body %></textarea>
-
-    <input type="submit" value="Update" class="btn">
-
-</form>
+        <label for="title"><b>Title</b></label>
+        <input type="text" placeholder="Blog Title" name="title" value="<%= data.title %>">
+    
+        <label for="body"><b>Content</b></label>
+        <textarea class="p-4" name="body" cols="50" rows="10"><%= data.body %></textarea>
+    
+        <input type="submit" value="Update" class="btn">
+    
+    </form>
+</div>

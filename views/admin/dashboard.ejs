@@ -1,9 +1,9 @@
-<div class="admin-title">
+<div class="admin-title py-4 lg:py-8 px-8 lg:px-20">
     <h2>Blogs</h2>
     <a href="/add-post" class="button">Add New</a>
 </div>
 
-<ul class="admin-posts">
+<ul class="admin-posts py-4 lg:py-8 px-8 lg:px-20">
     <% data.forEach(post => { %>
         <li>
             <a href="/post/<%= post._id %>">
@@ -19,5 +19,4 @@
             </div>
         </li>
     <% }) %>
-
 </ul>

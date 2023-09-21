@@ -1,21 +1,43 @@
-<header class="sticky top-0 z-50 bg-slate-900 border-b">
-    <a href="/" class="header_logo">WELCOME TO TECH BLOG</a>
+<nav class="w-full sticky top-0 z-50 flex justify-between bg-slate-900 border-b items-center py-4 lg:py-8 px-8 lg:px-20 text-white">
+    <div class="container mx-auto flex items-center justify-between">
+        <a href="/" class="md:text-2xl text-lg flex items-center justify-between">
+            <img src="/img/NextTechBlog.png" alt="NextTech Blog Logo" class="h-8 lg:h-10 mr-2">
+            <span>NextTech Blog</span>
+        </a>
+        
+        <!-- Desktop Nav  -->
+        <div class="hidden md:flex space-x-8">
+            <a href="/" class="nav-link hover:underline"  id="home-link">Home</a>
+            <a href="/dashboard" class="nav-link hover:underline" id="register-link">Dashboard</a>
+            <a href="/about" class="nav-link hover:underline" id="about-link">About</a>
+            <a href="/contact" class="nav-link hover:underline" id="contact-link">Contact</a>
+        </div>
 
-    <nav class="header_nav">
-        <ul>
-            <li>
-                <a href="/" class="">Home</a>
-            </li>
-            <li>
-                <a href="/about" class="">About</a>
-            </li>
-            <li>  
-                <a href="/contact" class="">Contact</a>
-            </li>
-        </ul>
-    </nav>
+        <!-- Mobile Nav -->
+        <div class="md:hidden">
+            <button id="mobile-menu-button" class="text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
 
-    <div class="header_button">
-        <a href="/logout">Logout</a>
+        <!-- Search Bar Toggle -->
+        <div class="">
+            <button class="text-white">
+                <a href="/admin">Logout</a>
+            </button>
+        </div>
+
     </div>
-</header>
+
+    
+</nav>
+
+<!-- Mobile Nav -->
+<div id="mobile-menu" class="md:hidden z-10 hidden fixed w-full bg-slate-900 p-4 text-white border-b-2">
+    <a href="/" class="block mb-2">Home</a>
+    <a href="/dashboard" class="block mb-2">Dashboard</a>
+    <a href="/about" class="block mb-2">About</a>
+    <a href="/contact" class="block mb-2">Contact</a>
+</div>
