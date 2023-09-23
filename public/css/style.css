@@ -45,21 +45,6 @@ textarea {
     margin-bottom: 1rem;
 }
 
-.btn {
-    background-color: var(--black);
-    border: none;
-    color: white;
-    padding: 16px 32px;
-    text-decoration: none;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-
-.btn-delete {
-    padding: 10px 16px;
-    background-color: var(--red);
-}
-
 /* Author - HomePage */
 .author {
     padding: 10px 0;
@@ -106,21 +91,6 @@ textarea {
 }
 
 /* Dashboard Admin */
-.admin-post-controls form {
-    display: inline-block;
-}
-
-.admin-post-controls .btn {
-    display: inline-block;
-    background-color: black;
-    color: rgb(34, 96, 166);
-    border: 0;
-    text-decoration: none;
-    font-size: .8rem;
-    padding: 4px 8px;
-    line-height: 2;
-}
-
 .admin-posts li {
     display: flex;
     justify-content: space-between;

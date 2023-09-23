@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const path = require('path');
 
 const connectDB = require('./server/config/db')
 
@@ -33,7 +34,6 @@ app.use(session({
 
 // stylish accept
 app.use(express.static('public'));
-
 
 // Templating Engine
 app.use(expressLayout);

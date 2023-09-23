@@ -3,7 +3,12 @@
     <h2>View / Edit Blog</h2>
 
     <form action="/delete-post/<%= data._id %>?_method=DELETE" method="POST">
-        <input type="submit" value="Delete" class="btn-delete btn">
+        <button 
+            type="submit"
+            class="py-2 px-4 rounded bg-blue-800 text-white hover:rounded-full transition duration-300"
+        >
+            Delete
+        </button>
     </form>
 
 </div>
@@ -15,9 +20,14 @@
         <input type="text" placeholder="Blog Title" name="title" value="<%= data.title %>">
     
         <label for="body"><b>Content</b></label>
-        <textarea class="p-4" name="body" cols="50" rows="10"><%= data.body %></textarea>
+        <textarea class="p-4" id="textarea" name="body" cols="50" rows="10"><%= data.body %></textarea>
     
-        <input type="submit" value="Update" class="btn">
+        <button 
+            type="submit"
+            class="py-2 px-4 mt-4 rounded bg-blue-800 text-white hover:rounded-full transition duration-300"
+        >
+            Update
+        </button>
     
     </form>
 </div>

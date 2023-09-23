@@ -239,31 +239,40 @@ router.get('/register', async (req, res) => {
   * POST /
   * Register admin
   */
-
-
  router.post("/register", async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { username, password, email } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
-        const existingUser = await User.findOne({ username });
+        const existingUser = await User.findOne({ $or: [{ username }, { email }] });
 
         if (existingUser) {
-            return res.status(409).json({ message: 'User already in exist'})
+            return res.status(409).json({ message: 'User already exist'})
         }
 
         try {
             const user = await User.create({ 
                 username,
-                password: hashedPassword 
+                password: hashedPassword ,
+                email
             });
 
-            res.status(201).json({message: 'User Created', user});
+            // Redirect admin to login page
             res.redirect('/admin')
         } catch (err) {
             res.status(500).json({ message: 'Internal server error'})
         }
     } catch (err) {
-        console.log(err);
+        if (err.code === 11000 && err.keyPattern) {
+            // Duplicate key error for either 'username' or 'email' field
+            if (err.keyPattern.username === 1) {
+                res.status(409).json({ message: 'Username already exist' });
+            } else if (err.keyPattern.email === 1) {
+                res.status(409).json({ message: 'Email already exist' });
+            }
+        } else {
+            console.error(err);
+            res.status(500).json({ message: 'Internal server error' });
+        }
     }
 });
 

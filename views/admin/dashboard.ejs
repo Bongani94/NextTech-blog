@@ -5,15 +5,25 @@
 
 <ul class="admin-posts py-4 lg:py-8 px-8 lg:px-20">
     <% data.forEach(post => { %>
-        <li>
+        <li class="flex flex-col md:flex-row">
             <a href="/post/<%= post._id %>">
                 <%= post.title %>
             </a>
-            <div class="admin-post-controls">
-                <a href="/edit-post/<%= post._id %>" class="btn">Edit</a>
+            <div class="flex gap-2">
+                <button 
+                    type="submit"
+                    class="py-2 px-4 rounded bg-green-800 text-white hover:rounded-full transition duration-300"
+                >  
+                    <a href="/edit-post/<%= post._id %>" class="btn">Edit</a>
+                </button>
 
                 <form action="/delete-post/<%= post._id %>?_method=DELETE" method="POST">
-                    <input type="submit" value="Delete" class="btn-delete btn">
+                    <button 
+                        type="submit"
+                        class="py-2 px-4 rounded bg-red-800 text-white hover:rounded-full transition duration-300"
+                    >
+                        Delete
+                    </button>
                 </form>
 
             </div>
