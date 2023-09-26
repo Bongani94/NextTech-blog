@@ -39,7 +39,7 @@ router.get('/admin', async (req, res) => {
             description: ""
         }
 
-        res.render('admin/admin', {
+        res.render('admin/login', {
             locals,
             adminLayout
         });
@@ -54,8 +54,8 @@ router.get('/admin', async (req, res) => {
 router.post('/admin', async (req, res) => {
     try {
 
-        const { username, password } = req.body;
-        const user = await User.findOne({ username });
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
 
         if(!user) {
             return res.status(401).json( { message: 'Invalid credentials' } );
@@ -241,34 +241,36 @@ router.get('/register', async (req, res) => {
   */
  router.post("/register", async (req, res) => {
     try {
-        const { username, password, email } = req.body;
+        const { name, email, password, password2 } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
-        const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+        const existingUser = await User.findOne({ email });
 
         if (existingUser) {
             return res.status(409).json({ message: 'User already exist'})
         }
 
         try {
+
             const user = await User.create({ 
-                username,
-                password: hashedPassword ,
-                email
-            });
+                name,
+                email,
+                password: hashedPassword,
+                password2: hashedPassword
+            })
 
             // Redirect admin to login page
             res.redirect('/admin')
+
         } catch (err) {
             res.status(500).json({ message: 'Internal server error'})
         }
+    
     } catch (err) {
         if (err.code === 11000 && err.keyPattern) {
-            // Duplicate key error for either 'username' or 'email' field
-            if (err.keyPattern.username === 1) {
-                res.status(409).json({ message: 'Username already exist' });
-            } else if (err.keyPattern.email === 1) {
+            // Duplicate key error for 'email' field
+            if (err.keyPattern.email === 1) {
                 res.status(409).json({ message: 'Email already exist' });
-            }
+            } 
         } else {
             console.error(err);
             res.status(500).json({ message: 'Internal server error' });

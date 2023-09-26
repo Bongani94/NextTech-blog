@@ -3,27 +3,67 @@
         <div class="font-medium self-center text-xl sm:text-2xl uppercase text-gray-800">Register Your Account</div>
         <div class="mt-10">
             <form action="/register" method="POST">
+
+                <!-- name -->
+                <div class="flex flex-col mb-6">
+                    <label for="name" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Name</label>
+                    <div class="relative">
+                        <input 
+                            type="name" 
+                            id="name" 
+                            name="name" 
+                            class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" 
+                            placeholder="Enter Name" 
+                            value="<%= typeof name != 'undefined' ? name : '' %>"
+                        />
+                    </div>
+                </div>
+
                 <!-- Email -->
                 <div class="flex flex-col mb-6">
-                    <label for="Email" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Email:</label>
+                    <label for="email" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Email:</label>
                     <div class="relative">
-                        <input id="email" type="email" name="email" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Email" />
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" 
+                            placeholder="Enter Email"
+                            value="<%= typeof email != 'undefined' ? email : '' %>"
+                        />
                     </div>
                 </div>
-                <!-- Username -->
-                <div class="flex flex-col mb-6">
-                    <label for="Username" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Username:</label>
-                    <div class="relative">
-                        <input id="username" type="text" name="username" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Username" />
-                    </div>
-                </div>
+                
                 <!-- Password -->
                 <div class="flex flex-col mb-6">
                     <label for="password" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Password:</label>
                     <div class="relative">
-                        <input id="password" type="password" name="password" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Password" />
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" 
+                            placeholder="Create Password"
+                            value="<%= typeof email != 'undefined' ? password : '' %>" 
+                        />
                     </div>
                 </div>
+
+                <!-- Confirm Password -->
+                <div class="flex flex-col mb-6">
+                    <label for="password2" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">Confirm Password:</label>
+                    <div class="relative">
+                        <input 
+                            type="password" 
+                            id="password2" 
+                            name="password2" 
+                            class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" 
+                            placeholder="Confirm Password"
+                            value="<%= typeof email != 'undefined' ? password2 : '' %>" 
+                        />
+                    </div>
+                </div>
+
                 <div class="flex w-full">
                     <button type="submit" value="Register" class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
                         <span class="mr-2 uppercase">Register</span>
