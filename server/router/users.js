@@ -117,12 +117,25 @@ router.post('/register', (req, res) => {
 });
 
 // Login Handle
-router.post('/login', (req, res, next) => {
+/*router.post('/login', (req, res, next) => {
     passport.authenticate('local', {
         successRedirect: '/dashboard',
         failureRedirect: '/login',
         failureFlash: true
     })(req, res, next);
-})
+})*/
+
+router.post('/login', async (req, res, next) => { 
+    try { 
+        await passport.authenticate('local', { 
+            successRedirect: '/dashboard', 
+            failureRedirect: '/login', 
+            failureFlash: true 
+        })(req, res, next); 
+    } catch (error) { 
+        next(error); } 
+    })
+
+
 
 module.exports = router;

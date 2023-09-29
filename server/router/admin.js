@@ -9,12 +9,25 @@ const adminLayout = '../views/layouts/admin';
  * Get /
  * Admin dashboard
  */
-router.get('/dashboard', ensureAuthenticated, (req, res) => 
-    res.render('admin/dashboard', {
-        name: req.user.name,
-        layout: adminLayout
-    })
-);
+router.get('/dashboard', ensureAuthenticated, async (req, res) => {
+    try {
+        const locals = {
+            title: 'Dashboard',
+            description: ''
+        }
+
+        const data = await Post.find();
+
+        res.render('admin/dashboard', {
+            name: req.user.name,
+            locals,
+            data,
+            layout: adminLayout
+        });
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 /**
  * GET /
