@@ -9,6 +9,7 @@
 
     <label for="image" class="form-label">Select Image</label>
     <input class="form-control form-control-lg" type="file" name="image">
+    <br>
     
     <label for="title"><b>Title</b></label>
     <input type="text" placeholder="Blog Title" name="title">
@@ -22,7 +23,8 @@
     >
         Add
     </button>
-    <br>
-    <img src="<%= typeof file != 'undefined' ? file : '' %>" class="img-responsive">
 
 </form>
+<br>
+<img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
+

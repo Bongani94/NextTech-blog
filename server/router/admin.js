@@ -50,7 +50,7 @@ function checkFileType(file, cb){
  * Get /
  * Admin dashboard
  */
-router.get('/dashboard', ensureAuthenticated, async (req, res) => {
+router.get('/dashboard', upload, ensureAuthenticated, async (req, res) => {
     try {
         const locals = {
             title: 'Dashboard',
@@ -74,7 +74,7 @@ router.get('/dashboard', ensureAuthenticated, async (req, res) => {
  * GET /
  * Admin - Create New Post
  */
-router.get('/add-post', ensureAuthenticated, async (req, res) => {
+router.get('/add-post', upload, ensureAuthenticated, async (req, res) => {
     try {
         const locals = {
             title: 'Add Post',
@@ -83,6 +83,8 @@ router.get('/add-post', ensureAuthenticated, async (req, res) => {
 
         const data = await Post.find();
         res.render('admin/add-post', {
+            name: req.user.name,
+            data,
             locals,
             layout: adminLayout
         })  
@@ -143,7 +145,7 @@ router.post('/add-post', upload, ensureAuthenticated, async (req, res) => {
  * GET /
  * Admin - Update old Blog
  */
-router.get('/edit-post/:id', ensureAuthenticated, async (req, res) => {
+router.get('/edit-post/:id', upload, ensureAuthenticated, async (req, res) => {
     try {
         let par = req.params.id
 
