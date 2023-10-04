@@ -60,7 +60,8 @@ router.get('/dashboard', upload, ensureAuthenticated, async (req, res) => {
             description: ''
         }
 
-        const data = await Post.find();
+        const userId = req.user._id;
+        const data = await Post.find({ createdBy: userId});
 
         res.render('admin/dashboard', {
             name: req.user.name,
