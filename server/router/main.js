@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
-
+const sanitizeHtml = require('sanitize-html');
 
 // Home page
 router.get('', async (req, res) => {
@@ -11,24 +11,33 @@ router.get('', async (req, res) => {
             description: "This platform aims to provide a space for tech enthusiasts to share their personal stories, experiences, challenges, and valuable insights on excelling in this dynamic field."
         }
 
-        let perPage = 10;
-        let page = req.query.page || 1;
         const recentPost = await Post.findOne().sort({ createdAt: -1 });
 
-        const data = await Post.aggregate([ { $sort: { createdAt: -1 }} ])
-        .skip(perPage * page - perPage)
-        .limit(perPage)
-        .exec();
+        const data = await Post.aggregate([ 
+            { $sort: { createdAt: -1 } },
+            { $lookup: { from: 'users', localField: 'createdBy', foreignField: '_id', as: 'createdBy' } },
+            { $unwind: '$createdBy' },
+            { $project: { 
+                title: 1, 
+                body: 1, 
+                createdAt: 1, 
+                updatedAt: 1, 
+                createdBy: '$createdBy.name'
+                }
+            }
+        ]);
 
-        const count = await Post.count();
-        const nextPage = parseInt(page) + 1;
-        const hasNextPage = nextPage <= Math.ceil(count / perPage);
+        // Sanitize HTML
+        data.forEach(post => {
+            post.body = sanitizeHtml(post.body, {
+                allowedTags: [],
+                allowedAttributes: {}
+            });
+        });
 
         res.render("home", {
             locals,
             data,
-            current: page,
-            nextPage: hasNextPage ? nextPage : null,
             recentPost
         });
 

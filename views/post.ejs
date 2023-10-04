@@ -2,9 +2,9 @@
     <h1 class="text-xl lg:text-3xl lg:pt-10 mb-2 text-center"><%= data.title %></h1>
     <div class="mb-4 text-center">
         <p class="text-gray-800"><%= data.createdAt.toDateString() %></p>
-        <p><%= data.author %></p>
+        <p><%= data.name %></p>
     </div>
-    <p class="text-justify w-full">
-        <%= data.body %>
-    </p>
+    <div id="cleantext" class="text-justify w-full">
+        <%- data.body %>
+    </div>
 </section>

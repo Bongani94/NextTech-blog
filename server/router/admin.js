@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+
+// const sanitizeHtml = require('sanitize-html');
+
 const Post = require('../models/Post');
 const { ensureAuthenticated } = require('../config/auth')
 
@@ -16,7 +19,8 @@ router.get('/dashboard', ensureAuthenticated, async (req, res) => {
             description: ''
         }
 
-        const data = await Post.find();
+        const userId = req.user._id;
+        const data = await Post.find({ createdBy: userId }).populate('createdBy', 'name');
 
         res.render('admin/dashboard', {
             name: req.user.name,
@@ -57,10 +61,17 @@ router.get('/add-post', ensureAuthenticated, async (req, res) => {
  */
 router.post('/add-post', ensureAuthenticated, async (req, res) => {
     try {
+        const userId = req.user._id;
+        // const sanitizeBody = sanitizeHtml(req.body.body, {
+        //     allowedTags: [],
+        //     allowedAttributes: {}
+        // });
         try {
             const newPost = new Post({
                 title: req.body.title,
-                body: req.body.body
+                // body: sanitizeBody,
+                body: req.body.body,
+                createdBy: userId
             });
             await Post.create(newPost);
             res.redirect('/dashboard');
@@ -110,9 +121,14 @@ router.get('/edit-post/:id', ensureAuthenticated, async (req, res) => {
  */
 router.put('/edit-post/:id', ensureAuthenticated, async (req, res) => {
     try {
+        // const sanitizeBody = sanitizeHtml(req.body.body, {
+        //     allowedTags: [],
+        //     allowedAttributes: {}
+        // });
 
         await Post.findByIdAndUpdate(req.params.id, {
             title: req.body.title,
+            // body: sanitizeBody,
             body: req.body.body,
             updatedAt: Date.now()
         });

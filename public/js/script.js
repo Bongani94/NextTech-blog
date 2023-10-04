@@ -1,12 +1,12 @@
 // Search bar
-const toggleSearchButton = document.getElementById('toggle-search-button');
-const searchField = document.getElementById('search-field')
-toggleSearchButton.addEventListener('click', () => {
-    searchField.classList.toggle('hidden');
-    if (!searchField.classList.contains('hidden')) {
-        searchField.focus();
-    }
-});
+// const toggleSearchButton = document.getElementById('toggle-search-button');
+// const searchField = document.getElementById('search-field')
+// toggleSearchButton.addEventListener('click', () => {
+//     searchField.classList.toggle('hidden');
+//     if (!searchField.classList.contains('hidden')) {
+//         searchField.focus();
+//     }
+// });
 
 // Responsive navigation menu
 const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -24,3 +24,16 @@ links.forEach(link => {
         link.classList.add('active-link');
     }
 });
+
+function cleanTinyMCEContent() {
+    content = tinymce.activeEditor.getContent()
+    cleanContent = content.replace(/\s\w+="[^"]*"/g,'')
+    newSection = document.createElement("div")
+    newContent = document.createTextNode(cleanContent)
+    newSection.appendChild(newContent)
+    currentSection = document.getElementById("cleantext")
+    document.body.insertBefore(newSection, currentSection)
+};
+
+var buttonPublish = document.getElementById(buttonRemove);
+buttonRemove.addEventListener('click', cleanTinyMCEContent, false);
