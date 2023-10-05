@@ -1,8 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
-// const sanitizeHtml = require('sanitize-html');
-
 const Post = require('../models/Post');
 const multer = require('multer');
 const path = require('path');
@@ -105,14 +102,9 @@ router.get('/add-post', upload, ensureAuthenticated, async (req, res) => {
 router.post('/add-post', upload, ensureAuthenticated, async (req, res) => {
     try {
         const userId = req.user._id;
-        // const sanitizeBody = sanitizeHtml(req.body.body, {
-        //     allowedTags: [],
-        //     allowedAttributes: {}
-        // });
 
         const newPost = new Post({
             title: req.body.title,
-            // body: sanitizeBody,
             body: req.body.body,
             createdBy: userId,
             image: req.body.image
@@ -185,14 +177,8 @@ router.get('/edit-post/:id', upload, ensureAuthenticated, async (req, res) => {
  */
 router.put('/edit-post/:id', ensureAuthenticated, async (req, res) => {
     try {
-        // const sanitizeBody = sanitizeHtml(req.body.body, {
-        //     allowedTags: [],
-        //     allowedAttributes: {}
-        // });
-
         await Post.findByIdAndUpdate(req.params.id, {
             title: req.body.title,
-            // body: sanitizeBody,
             body: req.body.body,
             updatedAt: Date.now()
         });

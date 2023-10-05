@@ -1,5 +1,5 @@
 # NextTech-blog
-> a blog website specifically designed for the tech industry. This platform aims to provide a space for tech enthusiasts to share their personal stories, experiences, challenges, and valuable insights on excelling in this dynamic field.
+> A blog website specifically designed for the tech industry. This platform aims to provide a space for tech enthusiasts to share their personal stories, experiences, challenges, and valuable insights on excelling in this dynamic field.
 ---
 ## Learning objectives
 >
@@ -14,4 +14,4 @@
 ---
 ### Authors
 > * Bongani Baloyi [bonganibaloyi94@gmail.com]
-> * Godwin Woode
+> * Godwin Woode [kingsleywoode1@gmail.com]
