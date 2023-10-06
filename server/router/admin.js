@@ -11,24 +11,24 @@ const adminLayout = '../views/layouts/admin';
 // Image upload
 const storage = multer.diskStorage({
     destination: './uploads',
-    filename: function(req, file, cb){
+    filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now() +
-        path.extname(file.originalname));
+            path.extname(file.originalname));
     }
 });
 
 // Init Upload
 const upload = multer({
     storage: storage,
-    limits: {fileSize: 1000000},
-    fileFilter: function(req, file, cb){
+    limits: { fileSize: 1000000 },
+    fileFilter: function (req, file, cb) {
         checkFileType(file, cb);
     }
 }).single('image');
 
 // Check File Type
-function checkFileType(file, cb){
-    
+function checkFileType(file, cb) {
+
     // allowed extension
     const filetypes = /jpeg|jpg|png|gif/;
 
@@ -39,7 +39,7 @@ function checkFileType(file, cb){
     // Check mime
     const mimetype = filetypes.test(file.mimetype);
 
-    if(mimetype && extname) {
+    if (mimetype && extname) {
         return cb(null, true);
     } else {
         cb('Error: Images Only! ')
@@ -50,7 +50,7 @@ function checkFileType(file, cb){
  * Get /
  * Admin dashboard
  */
-router.get('/dashboard', upload, ensureAuthenticated, async (req, res) => {
+router.get('/dashboard', ensureAuthenticated, async (req, res) => {
     try {
         const locals = {
             title: 'Dashboard',
@@ -58,7 +58,7 @@ router.get('/dashboard', upload, ensureAuthenticated, async (req, res) => {
         }
 
         const userId = req.user._id;
-        const data = await Post.find({ createdBy: userId});
+        const data = await Post.find({ createdBy: userId });
 
         res.render('admin/dashboard', {
             name: req.user.name,
@@ -75,7 +75,7 @@ router.get('/dashboard', upload, ensureAuthenticated, async (req, res) => {
  * GET /
  * Admin - Create New Post
  */
-router.get('/add-post', upload, ensureAuthenticated, async (req, res) => {
+router.get('/add-post', ensureAuthenticated, async (req, res) => {
     try {
         const locals = {
             title: 'Add Post',
@@ -88,7 +88,7 @@ router.get('/add-post', upload, ensureAuthenticated, async (req, res) => {
             data,
             locals,
             layout: adminLayout
-        })  
+        })
     } catch (err) {
         console.log(err);
     }
@@ -107,19 +107,20 @@ router.post('/add-post', upload, ensureAuthenticated, async (req, res) => {
             title: req.body.title,
             body: req.body.body,
             createdBy: userId,
-            image: req.body.image
+            image: req.file.filename
         });
 
         try {
-            const data = await Post.upload(req, res);
+            let data = [];
+            await Post.upload(req, res);
             if (req.file == undefined) {
-                res.render('admin/dashboard', {
+                res.send({
                     data,
                     name: req.user.name,
                     msg: 'Error: No File Selected!'
                 });
             } else {
-                res.render('admin/dashboard', {
+                res.send({
                     data,
                     name: req.user.name,
                     msg: 'File Uploaded!',
@@ -127,21 +128,14 @@ router.post('/add-post', upload, ensureAuthenticated, async (req, res) => {
                 });
             }
         } catch (err) {
-            res.render('admin/dashboard', {
-                data,
-                name: req.user.name,
-                msg: err
-            });
+            console.log(err)
         }
 
         await Post.create(newPost);
         res.redirect('/dashboard');
 
     } catch (err) {
-        res.render('admin/dashboard', {
-            name: req.user.name,
-            msg: err
-        })
+        console.log(err)
     }
 });
 
@@ -149,7 +143,7 @@ router.post('/add-post', upload, ensureAuthenticated, async (req, res) => {
  * GET /
  * Admin - Update old Blog
  */
-router.get('/edit-post/:id', upload, ensureAuthenticated, async (req, res) => {
+router.get('/edit-post/:id', ensureAuthenticated, async (req, res) => {
     try {
         let par = req.params.id
         const data = await Post.findOne({ _id: par });
@@ -158,7 +152,7 @@ router.get('/edit-post/:id', upload, ensureAuthenticated, async (req, res) => {
             title: "Edit Blog",
             description: "",
         };
-        
+
         res.render('admin/edit-post', {
             data,
             locals,
@@ -195,7 +189,7 @@ router.put('/edit-post/:id', ensureAuthenticated, async (req, res) => {
  */
 router.delete('/delete-post/:id', ensureAuthenticated, async (req, res) => {
     try {
-        await Post.deleteOne( { _id: req.params.id } );
+        await Post.deleteOne({ _id: req.params.id });
         res.redirect('/dashboard');
     } catch (err) {
         console.log(err)
