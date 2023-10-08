@@ -1,6 +1,8 @@
 # NextTech-blog
 > A blog website specifically designed for the tech industry. This platform aims to provide a space for tech enthusiasts to share their personal stories, experiences, challenges, and valuable insights on excelling in this dynamic field.
 ---
+![tech](android-chrome-384x384.png)
+---
 ## Learning objectives
 > We wanted to take a moment to share with you our mission and purpose - to inspire and motivate individuals like yourself about the tech industry and the remarkable lifestyle that comes with it.
 The tech industry, undoubtedly, holds the key to our future. It is an ever-evolving field that constantly pushes boundaries and brings forth groundbreaking innovations. By shedding light on the immense opportunities and benefits it offers, we aim to ignite a spark of curiosity and ambition within you.
