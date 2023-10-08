@@ -9,7 +9,8 @@ The tech industry, undoubtedly, holds the key to our future. It is an ever-evolv
 Imposter syndrome, a feeling of inadequacy or self-doubt, can often hinder one's personal and professional growth. We want to assure you that you have the potential to succeed and thrive in the tech industry. No matter your background or previous experiences, you have unique perspectives and skills that can contribute to this dynamic field.
 Our endeavor is to create a supportive community where individuals can learn from each other, share their experiences, and build confidence. We want you to feel empowered and encouraged to embrace your true self, free from any imposter syndrome.
 Together, let's embark on a journey of discovery, learning, and growth in the tech industry. We believe that by fostering a community that celebrates diversity and inclusivity, we can collectively shape a brighter future.
-
+---
+![home](home%20page.png)
 ---
 ## Technologies
 > * JavaScript to develop our web pages
